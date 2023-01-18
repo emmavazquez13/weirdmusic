@@ -22,24 +22,20 @@ AS A LOCAL AUSTINITE
 I WANT TO DISCOVER NEW MUSIC NEAR ME
 SO THAT I CAN ATTEND AMAZING CONCERTS
 ```
-## Acceptance Criteria
+## Tech Stack
 
-```md
-GIVEN a 
-WHEN I 
-THEN I am presented with 
-WHEN I 
-THEN I am presented with 
-WHEN I 
-THEN I am presented with 
-WHEN I 
-THEN 
-WHEN 
-THEN I am presented with 
-WHEN 
-THEN I 
+**Backend:**
 
-```
+- Apollo Server / GraphQL
+- Socket.io 
+- MongoDB
+
+**Frontend:**
+
+- React
+- Apollo Client
+- TailwindCSS
+
 
 ## Credits 
 
