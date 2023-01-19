@@ -12,8 +12,10 @@ const groupSchema = new Schema(
             required: true,
         },
         lastModified: {
-            type: Date,
-            required: true,           
+            type: Date,          
+        },
+        going: {
+            type: Boolean,
         },
         messages: [messageSchema],
         user: [userSchema],
