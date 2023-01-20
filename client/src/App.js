@@ -8,4 +8,13 @@ function App() {
   );
 }
 
+
+import React from 'react';
+import Footer from './src/footer';
+function App() {
+  return (
+     <Footer />
+  );
+}
+  
 export default App;
