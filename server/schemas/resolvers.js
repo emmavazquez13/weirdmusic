@@ -14,11 +14,6 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, args) => {
-      const user = await User.create(args);
-      const token = signToken(user);
-      return { token, user };
-    },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -36,6 +31,27 @@ const resolvers = {
       return { token, user };
     },
 
+    addUser: async (parent, args) => {
+      const user = await User.create(args);
+      const token = signToken(user);
+      return { token, user };
+    },
+
+    addFavorites: async (parent, { groupData }, context) => {
+      // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $push: { addFavorites: groupData}
+          },
+          {
+            new: true,
+          }
+        );
+        return updatedUser;
+      }
+    },
     // Add a third argument to the resolver to access data in our `context`
     addGroup: async (parent, { groupData }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
@@ -43,7 +59,7 @@ const resolvers = {
         const updatedGenre = await Genre.findOneAndUpdate(
           { _id: context.genre._id },
           {
-            $push: { savedGroups: groupData}
+            $push: {addGroup: groupData}
           },
           {
             new: true,
@@ -54,7 +70,20 @@ const resolvers = {
       // If user attempts to execute this mutation and isn't logged in, throw an error
       throw new AuthenticationError('You need to be logged in!');
     },
+    deleteGroup: async (parent, { groupId }, context) => {
+      if (context.genre) {
+        const updatedGenre = Genre.findOneAndUpdate(
+          { _id: context.genre._id },
+          { $pull: { addGroup: { groupId } } },
+          { new: true }
+        );
+        return updatedGenre;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
   },
 };
+
+
 
 module.exports = resolvers;

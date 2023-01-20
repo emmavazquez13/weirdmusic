@@ -1,8 +1,9 @@
 const { Schema, model } = require('mongoose');
 
+const groupSchema = require('./Group')
 const genreSchema = new Schema(
     {
-        group: [groupSchema]
+        //addGroup: [groupSchema]
     },
 )
 

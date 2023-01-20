@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-// import schema from Book.js
-const bookSchema = require('./Book');
+const messageSchema = require('./Message');
+const groupSchema = require('./Group');
 
 const userSchema = new Schema(
   {
@@ -21,7 +21,8 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    message:[messageSchema]
+    //addGroup: [groupSchema],
+   // message: [messageSchema]
   },
 );
 

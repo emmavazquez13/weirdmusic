@@ -1,5 +1,7 @@
 const { Schema, model } = require('mongoose');
 
+const userSchema = require('./User');
+const messageSchema = require('./Message')
 const groupSchema = new Schema(
     {
         name: {
@@ -17,8 +19,8 @@ const groupSchema = new Schema(
         going: {
             type: Boolean,
         },
-        messages: [messageSchema],
-        user: [userSchema],
+      //  messages: [messageSchema],
+       //user: [userSchema],
     },
 )
 

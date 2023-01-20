@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+const userSchema = require('./User')
 const messageSchema = new Schema(
     {
         message: {
@@ -9,7 +10,7 @@ const messageSchema = new Schema(
         createdAt: {
             type: Date,
         },
-        user: [userSchema]
+       // user: [userSchema]
     },
 )
 
