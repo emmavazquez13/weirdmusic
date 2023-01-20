@@ -5,64 +5,42 @@ const typeDefs = gql`
     _id: ID!
     username: String!
     email: String!
+    bookCount: Int
+    savedBooks: [Book]
   }
 
   type Auth {
     token: ID!
     user: User
   }
- 
-  type Genre {
-    genreId: ID!
-    group: [Group]
+
+  type Book {
+    bookId: ID!
+    authors: [String]
+    description: String
+    title: String!
+    image: String
+    link: String
   }
 
-  type Favorites {
-    favoritesId: ID!
-    group: [Group]
-  }
-
-  type Group {
-    groupId: ID!
-    name: String!
-    totalMessages: Int!
-    lastModified: Date
-    going: Boolean
-    messages: [Message]
-    user: [User]
-  }
-
-  type Message {
-    messageId: ID!
-    message: String!
-    createdAt: Date
-    user: [User]
+  input InputBook {
+    bookId: String
+    authors: [String]
+    title: String
+    description: String
+    image: String
+    link: String
   }
   
-  input inputGroup {
-    groupId: ID!
-    name: String!
-    totalMessages: Int!
-    lastModified: Date
-    going: Boolean
-    messages: [Message]
-    user: [User]
-  }
-
   type Query {
     me: User
-    group: [Group]
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addGroup(groupId: ID!) Group
-    addFavorites(favoritesID: ID!) Group
-    postGroup(name: String!, totalMessages: Int!, lastModified: Date, going: Boolean) Group
-    savedGroups(groupData: inputGroup!) 
-    deleteGroup(groupId: ID!)
-    deleteMessage(messageId: ID!)
+    saveBook(bookData: InputBook!): User
+    removeBook(bookId: ID!): User
   }
 `;
 
