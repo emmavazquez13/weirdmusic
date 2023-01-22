@@ -1,4 +1,10 @@
 import './App.css';
+import './components/header';
+import './components/footer';
+import './components/login';
+import './components/message';
+import './components/profile';
+import './components/register';
 
 function App() {
   return (
