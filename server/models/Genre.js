@@ -1,11 +1,18 @@
 const { Schema, model } = require('mongoose');
 
-const groupSchema = require('./Group')
+const Group = require('./Group')
 const genreSchema = new Schema(
     {
-        //addGroup: [groupSchema]
+        groups: [Group.schema]
     },
-)
+);
+
+genreSchema
+  .virtual('newgroup')
+  // Getter
+  .get(function () {
+    return this.groups.length;
+  });
 
 const Genre = model('Genre', genreSchema);
 

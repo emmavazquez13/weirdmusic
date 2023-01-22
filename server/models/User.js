@@ -1,8 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-
-const messageSchema = require('./Message');
-const groupSchema = require('./Group');
+const Favorites = require('./Favorites');
+const Group = require('./Group');
 
 const userSchema = new Schema(
   {
@@ -21,10 +20,24 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    //addGroup: [groupSchema],
-   // message: [messageSchema]
+    favorites:[Favorites.schema]
   },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    id: false,
+  }
 );
+
+userSchema
+  .virtual('favorited')
+  // Getter
+  .get(function () {
+    return this.favorites.length;
+  });
+  // Setter to set the first and last name
+ 
 
 // hash user password
 userSchema.pre('save', async function (next) {

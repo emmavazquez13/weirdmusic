@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
-
-const userSchema = require('./User');
+const User = require('./User');
 const messageSchema = require('./Message')
 const groupSchema = new Schema(
     {
@@ -20,9 +19,17 @@ const groupSchema = new Schema(
             type: Boolean,
         },
       //  messages: [messageSchema],
-       //user: [userSchema],
     },
+    {
+        toJSON: {
+            virtuals: true
+        },
+        id: false,
+    }
 )
+
+
+
 
 const Group = model('Group', groupSchema);
 

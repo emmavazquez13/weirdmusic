@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Genre } = require('../models');
+const { User, Genre, Group, Favorites } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -11,7 +11,20 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+    groups: async () => {
+      return Group.find();
+    },
+    favorites: async (parent, { group }) => {
+      const params = group ? { group } : {};
+      return Favorites.find(params);
+    },
+    genre: async (parent, { group }) => {
+      const params = group ? { group } : {};
+      return Genre.find(params);
+    }
   },
+  
+
 
   Mutation: {
     login: async (parent, { email, password }) => {
@@ -37,39 +50,37 @@ const resolvers = {
       return { token, user };
     },
 
-    addFavorites: async (parent, { groupData }, context) => {
+    addFavorites: async (parent, { groupId }, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          {
-            $push: { addFavorites: groupData}
-          },
-          {
-            new: true,
-          }
-        );
+          { $addToSet: {groups: groupId  } },
+          { new: true }
+        ).populate('favorites');
+        
         return updatedUser;
       }
     },
     // Add a third argument to the resolver to access data in our `context`
-    addGroup: async (parent, { groupData }, context) => {
+    postGroup: async (parent, args , context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       if (context.genre) {
-        const updatedGenre = await Genre.findOneAndUpdate(
-          { _id: context.genre._id },
-          {
-            $push: {addGroup: groupData}
-          },
-          {
-            new: true,
-          }
-        );
-        return updatedGenre;
+        const group = await Group.create({
+          ...args
+        });
+
+        await Genre.findOneAndUpdate(
+          {genreId: context.genre._id },
+          {$push: { groups: group } },
+          { new: true }
+        )
+        return group;
       }
       // If user attempts to execute this mutation and isn't logged in, throw an error
       throw new AuthenticationError('You need to be logged in!');
     },
+
     deleteGroup: async (parent, { groupId }, context) => {
       if (context.genre) {
         const updatedGenre = Genre.findOneAndUpdate(
