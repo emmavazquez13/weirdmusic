@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+const userSchema = require('./User')
 const messageSchema = new Schema(
     {
         message: {
@@ -10,7 +11,7 @@ const messageSchema = new Schema(
             type: Date,
             required: true,
         },
-        user: [userSchema]
+       // user: [userSchema]
     },
 )
 
