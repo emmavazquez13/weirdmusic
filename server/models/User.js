@@ -1,8 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-
-// import schema from Book.js
-const bookSchema = require('./Book');
+const Favorites = require('./Favorites');
+const Group = require('./Group');
 
 const userSchema = new Schema(
   {
@@ -21,9 +20,24 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    message:[messageSchema]
+    favorites:[Favorites.schema]
   },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    id: false,
+  }
 );
+
+userSchema
+  .virtual('favorited')
+  // Getter
+  .get(function () {
+    return this.favorites.length;
+  });
+  // Setter to set the first and last name
+ 
 
 // hash user password
 userSchema.pre('save', async function (next) {

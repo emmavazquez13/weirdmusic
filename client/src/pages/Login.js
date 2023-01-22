@@ -1,66 +1,52 @@
 import React, { useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import { Link } from 'react-router-dom'
 
-const REGISTER_USER = gql`
-  mutation register(
+const LOGIN_USER = gql`
+  query login(
     $username: String!
-    $email: String!
     $password: String!
-    $confirmPassword: String!
   ) {
-    register(
+    login(
       username: $username
-      email: $email
       password: $password
-      confirmPassword: $confirmPassword
     ) {
       username
       email
       createdAt
+      token
     }
   }
 `
 
 export default function Register(props) {
   const [variables, setVariables] = useState({
-    email: "",
     username: "",
     password: "",
-    confirmPassword: "",
   });
   const [errors, setErrors] = useState({})
 
-  const [registerUser, { loading }] = useMutation(REGISTER_USER, {
-    update: (_, __) => props.history.push('/login'),
-    onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors)
+  const [loginUser, { loading }] = useLazyQuery(LOGIN_USER, {
+    onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors),
+    onCompleted(data){
+        localStorage.setItem('token', data.login.token)
+        props.history.push('/')
+    },
   })
 
-  const submitRegisterForm = (e) => {
+  const submitLoginForm = (e) => {
     e.preventDefault();
 
-    registerUser({ variables });
+    loginUser({ variables });
   };
 
   return (
     <Row className="bg-white py-5 justify-content-center">
       <Col sm={8} md={6} lg={4}>
-        <h1 className="text-center">Register</h1>
-        <Form onSubmit={submitRegisterForm}>
-          <Form.Group>
-            <Form.Label className={errors.email && 'text-danger'}>
-              {errors.email ?? 'Email address'}
-            </Form.Label>
-            <Form.Control
-              type="email"
-              value={variables.email}
-              className={errors.email && 'is-invalid'}
-              onChange={(e) =>
-                setVariables({ ...variables, email: e.target.value })
-              }
-            />
-          </Form.Group>
+        <h1 className="text-center">Login</h1>
+        <Form onSubmit={submitLoginForm}>
+          
           <Form.Group>
           <Form.Label className={errors.username && 'text-danger'}>
               {errors.username ?? 'Username'}
@@ -87,25 +73,13 @@ export default function Register(props) {
               }
             />
           </Form.Group>
-          <Form.Group>
-          <Form.Label className={errors.confirmPassword && 'text-danger'}>
-              {errors.confirmPassword ?? 'Confirm password'}
-            </Form.Label>
-            <Form.Control
-              type="password"
-              value={variables.confirmPassword}
-              className={errors.confirmPassword && 'is-invalid'}
-              onChange={(e) =>
-                setVariables({ ...variables, confirmPassword: e.target.value })
-              }
-            />
-          </Form.Group>
+        
 
           <div className="text-center">
-          <Button variant="success" type="submit" disabled={loading}>
+            <Button variant="success" type="submit" disabled={loading}>
               { loading ? 'loading..' : 'Login'}
               <br/>
-              <small> Already have an account? <Link to="/login">Login</Link></small>
+              <small>Don't have an account? <Link to="/register">Register</Link></small>
             </Button>
           </div>
         </Form>

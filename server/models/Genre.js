@@ -1,22 +1,18 @@
 const { Schema, model } = require('mongoose');
 
+const Group = require('./Group')
 const genreSchema = new Schema(
     {
-        artist: {
-            type: String,
-            required: true,
-        },
-        date: {
-            type: Date,
-            required: true,
-        },
-        going: {
-            type: Boolean,
-            required: true,
-        },
-        group: [groupSchema]
+        groups: [Group.schema]
     },
-)
+);
+
+genreSchema
+  .virtual('newgroup')
+  // Getter
+  .get(function () {
+    return this.groups.length;
+  });
 
 const Genre = model('Genre', genreSchema);
 
