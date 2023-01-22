@@ -9,6 +9,7 @@ const messageSchema = new Schema(
         },
         createdAt: {
             type: Date,
+            required: true,
         },
        // user: [userSchema]
     },
