@@ -5,6 +5,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from "@ap
 import { setContext } from '@apollo/client/link/context';
 import "./App.scss";
 
+import Home from './pages/Home'
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Messages from "./pages/Messages";
@@ -37,6 +38,7 @@ function App() {
       <BrowserRouter>
     <Container className="pt-5">
       <Switch>
+      <Route path="/" component={Home} />
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
       <Route path="/profile" component={Profile} />
