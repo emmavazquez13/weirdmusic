@@ -21,22 +21,23 @@ export const ADD_USER = gql`
 mutation addUser(
     $username: String! 
     $email: String! 
-    $password: String!) 
-    {
+    $password: String!
+    ) {
     addUser(
         username: $username,
         email: $email,
-        password: $password)
-        {
+        password: $password
+        ){
         token
         user {
-                _id
-                username
-                email
-                favorited
-                favorites {
+            _id
+            username
+            email
+            favorited
+            favorites {
                     favoritesId
-                    favrited
+                    favoritesBody
+                    favorited
                     groups {
                         groupId
                         name
