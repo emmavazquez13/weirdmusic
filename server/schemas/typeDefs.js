@@ -5,6 +5,7 @@ const typeDefs = gql`
     _id: ID!
     username: String!
     email: String!
+    favorited: Int
     favorites: [Favorites]
 
   }
@@ -17,6 +18,7 @@ const typeDefs = gql`
   type Genre {
     genreId: ID!
     group: Group
+    newgroup: Int
   }
 
   type Group {
@@ -24,9 +26,6 @@ const typeDefs = gql`
     name: String!
     totalMessages: Int!
     lastModified: String
-    going: Boolean
-    messages: Message
-    user: User
   }
 
   type Message {
@@ -37,9 +36,10 @@ const typeDefs = gql`
   }
   
   type Favorites {
-    favoriteId: ID!
-    favoriteBody: String
+    favoritesId: ID!
+    favoritesBody: String
     groups: Group
+    favorited: Int
 
   }
   
@@ -53,7 +53,7 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    postGroup(groupId: ID! name: String! totalMessages: Int! lastModified: String going: Boolean): Genre
+    postGroup(groupId: ID! name: String! totalMessages: Int! lastModified: String): Genre
     addFavorites(groupId: ID!): Favorites
     deleteGroup(groupId: ID!): Genre
   }
