@@ -5,6 +5,7 @@ import './components/login';
 import './components/message';
 import './components/profile';
 import './components/register';
+import './components/homepage';
 
 function App() {
   return (

@@ -1,0 +1,1 @@
+import image from '../components/images/logo.png';
