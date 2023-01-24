@@ -16,8 +16,5 @@
   "bugs": {
     "url": "https://github.com/emmavazquez13/weirdmusic/issues"
   },
-  "homepage": "https://github.com/emmavazquez13/weirdmusic#readme",
-  "dependencies": {
-    "@craco/craco": "^7.0.0"
-  }
+  "homepage": "https://github.com/emmavazquez13/weirdmusic#readme"
 }

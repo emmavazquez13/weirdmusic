@@ -2,14 +2,14 @@ import React from 'react'
 import { Row, Col, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import { useAuthDispatch } from '../context/auth'
+// import { useAuthDispatch } from '../context/auth'
 
 export default function Home({ history }) {
-    const dispatch = useAuthDispatch()
+    // const dispatch = useAuthDispatch()
 
     const logout = () => {
-        dispatch({ type: 'LOGOUT' })
-        history.push('/login')
+        // dispatch({ type: 'LOGOUT' })
+        // history.push('/login')
     }
     return (
        <Row className="bg-white justify content-around">

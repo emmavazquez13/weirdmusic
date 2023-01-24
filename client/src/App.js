@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
-import "./App.scss";
+// import "./App.scss";
 
 import Home from './pages/Home'
 import Register from "./pages/Register";
