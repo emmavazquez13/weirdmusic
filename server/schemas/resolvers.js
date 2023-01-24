@@ -88,7 +88,7 @@ const resolvers = {
           { $pull: { addGroup: { groupId } } },
           { new: true }
         );
-        return updatedUser;
+        return updatedGenre;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
