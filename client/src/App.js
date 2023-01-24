@@ -10,16 +10,6 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Messages from "./pages/Messages";
 
-
-import './components/header';
-import './components/footer';
-import './components/login';
-import './components/message';
-import './components/profile';
-import './components/register';
-import './components/homepage';
-
-
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -42,7 +32,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-
 function App() {
   return (
     <ApolloProvider client = {client}>
@@ -62,13 +51,4 @@ function App() {
   )
 }
 
-
-import React from 'react';
-import Footer from './src/footer';
-function App() {
-  return (
-     <Footer />
-  );
-}
-  
 export default App;

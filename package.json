@@ -17,11 +17,6 @@
     "url": "https://github.com/emmavazquez13/weirdmusic/issues"
   },
   "homepage": "https://github.com/emmavazquez13/weirdmusic#readme",
-  "devDependencies": {
-    "autoprefixer": "^10.4.13",
-    "postcss": "^8.4.21",
-    "tailwindcss": "^3.2.4"
-  },
   "dependencies": {
     "@craco/craco": "^7.0.0"
   }
