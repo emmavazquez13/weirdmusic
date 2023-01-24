@@ -73,6 +73,13 @@ module.exports = {
         DEFAULT: '.25rem',
         'lg': '.5rem',
         'full': '9999px',
+      },
+      
+       objectPosition: {
+        'bottom': 'bottom',
+         'top': 'top',
+         'left': 'left',
+         'right' : 'right',
       }
     },
   },
