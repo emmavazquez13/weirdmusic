@@ -1,14 +1,14 @@
-import React, { Profile } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
-// import "./App.scss";
 
 import Home from './pages/Home'
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Messages from "./pages/Messages";
+import Profile from './pages/Profile';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -35,18 +35,25 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client = {client}>
-      <BrowserRouter>
     <Container className="pt-5">
-      <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/register" component={Register} />
-      <Route path="/login" component={Login} />
-      <Route path="/profile" component={Profile} />
-      <Route path="/messages" component={Messages} />
-      </Switch>
+
+      <Router>
+        <>
+        <Routes>
+      <Route exact path="/" element={<Home />} />
+
+      <Route exact path="/register" element={<Register />} />
+
+      <Route path="/login" element={<Login />} />
+
+      <Route path="/profile" element={<Profile />} />
+      
+      <Route path="/messages" element={<Messages />} />
+      </Routes>
+      </>
+      </Router>
 
     </Container>
-    </BrowserRouter>
     </ApolloProvider>
   )
 }

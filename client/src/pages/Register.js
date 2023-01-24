@@ -1,115 +1,145 @@
-import React, { useState } from "react";
-import { Row, Col, Form, Button } from "react-bootstrap";
-import { gql, useMutation } from "@apollo/client";
+import React, { useState, useEffect } from "react";
+import { Row, Col, Form, Button, Alert } from "react-bootstrap";
+import { useMutation } from "@apollo/client";
 import { Link } from 'react-router-dom'
+import { ADD_USER } from '../utils/mutations';
+import Auth from '../utils/auth';
 
-const REGISTER_USER = gql`
-  mutation register(
-    $username: String!
-    $email: String!
-    $password: String!
-    $confirmPassword: String!
-  ) {
-    register(
-      username: $username
-      email: $email
-      password: $password
-      confirmPassword: $confirmPassword
-    ) {
-      username
-      email
-      createdAt
+const Register = () => {
+  const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+  const [validated] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [addUser, { error, data }] = useMutation(ADD_USER);
+
+  useEffect(() => {
+    if (error) {
+      setShowAlert(true);
+    }else{
+      setShowAlert(false);
     }
-  }
-`
+  }, [error]);
 
-export default function Register(props) {
-  const [variables, setVariables] = useState({
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [errors, setErrors] = useState({})
-
-  const [registerUser, { loading }] = useMutation(REGISTER_USER, {
-    update: (_, __) => props.history.push('/login'),
-    onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors)
-  })
-
-  const submitRegisterForm = (e) => {
-    e.preventDefault();
-
-    registerUser({ variables });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserFormData({ ...userFormData, [name]: value });
   };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    console.log(form)
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    try {
+      const { data } = await addUser({
+        variables: { ...userFormData },
+      });
+      console.log(data)
+      Auth.login(data.addUser.token);
+    } catch  (e) {
+      console.error(e);
+    }
+
+    setUserFormData({
+      username: '',
+      email: '',
+      password: '',
+    });
+  };
+
+
+  //export default function Register(props) {
+  //const [variables, setVariables] = useState({
+    //email: "",
+    //username: "",
+    //password: "",
+    //confirmPassword: "",
+  //});
+  //const [errors, setErrors] = useState({})
+
+  //const [registerUser, { loading }] = useMutation(REGISTER_USER, {
+    //update: (_, __) => props.history.push('/login'),
+    //onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors)
+  //})
+
+  //const submitRegisterForm = (e) => {
+    //e.preventDefault();
+
+    //registerUser({ variables });
+  //};
 
   return (
     <Row className="bg-white py-5 justify-content-center">
       <Col sm={8} md={6} lg={4}>
         <h1 className="text-center">Register</h1>
-        <Form onSubmit={submitRegisterForm}>
+        <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+          Something went wrong with your signup!
+        </Alert>
           <Form.Group>
-            <Form.Label className={errors.email && 'text-danger'}>
-              {errors.email ?? 'Email address'}
+            <Form.Label htmlFor='email'>
+              { 'Email address' }
             </Form.Label>
             <Form.Control
               type="email"
-              value={variables.email}
-              className={errors.email && 'is-invalid'}
-              onChange={(e) =>
-                setVariables({ ...variables, email: e.target.value })
-              }
+              value={userFormData.email}
+              name='email'
+              onChange={handleInputChange}
+              required
             />
           </Form.Group>
           <Form.Group>
-          <Form.Label className={errors.username && 'text-danger'}>
-              {errors.username ?? 'Username'}
+          <Form.Label htmlFor= 'username'>
+              { 'Username' }
             </Form.Label>
             <Form.Control
               type="text"
-              value={variables.username}
-              className={errors.username && 'is-invalid'}
-              onChange={(e) =>
-                setVariables({ ...variables, username: e.target.value })
-              }
+              value={userFormData.username}
+              name= 'username'
+              onChange={handleInputChange}
+              required
             />
           </Form.Group>
           <Form.Group>
-          <Form.Label className={errors.password && 'text-danger'}>
-              {errors.password ?? 'Password'}
+          <Form.Label htmlFor='password'>
+              {'Password'}
             </Form.Label>
             <Form.Control
               type="password"
-              value={variables.password}
-              className={errors.password && 'is-invalid'}
-              onChange={(e) =>
-                setVariables({ ...variables, password: e.target.value })
-              }
+              value={userFormData.password}
+              name='password'
+              onChange={handleInputChange}
+              required
             />
           </Form.Group>
           <Form.Group>
-          <Form.Label className={errors.confirmPassword && 'text-danger'}>
-              {errors.confirmPassword ?? 'Confirm password'}
+          <Form.Label htmlFor='confirmPassword'>
+              {'Confirm password'}
             </Form.Label>
             <Form.Control
               type="password"
-              value={variables.confirmPassword}
-              className={errors.confirmPassword && 'is-invalid'}
-              onChange={(e) =>
-                setVariables({ ...variables, confirmPassword: e.target.value })
-              }
+              value={userFormData.confirmPassword}
+              name='is-invalid'
+              onChange={handleInputChange}
+              required
             />
           </Form.Group>
 
           <div className="text-center">
-          <Button variant="success" type="submit" disabled={loading}>
-              { loading ? 'loading..' : 'Login'}
-              <br/>
-              <small> Already have an account? <Link to="/login">Login</Link></small>
+          <Button variant="success" type="submit" disabled={!(userFormData.username && userFormData.email && userFormData.password)}>
+             Submit
             </Button>
+            <br/>
+              <small> Already have an account? <Link to="/login">Login</Link></small>
           </div>
         </Form>
       </Col>
     </Row>
   );
 }
+
+export default Register;
