@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
 
 export default function Home() {
+  const logout = () => {
+    Auth.logout();
+    window.location.href = '/';
+  };
 
-    const logout = () => {
-      Auth.logout()
-      // history.push('/login')
-   }
   return (
     <div>
       <h1>Hello. You are logged in</h1>
