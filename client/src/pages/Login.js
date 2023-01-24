@@ -6,7 +6,7 @@ import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const Login = () => {
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' })
+  const [userFormData, setUserFormData] = useState({ username: '', password: '' })
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [login, { error }] = useMutation(LOGIN_USER);
@@ -46,7 +46,6 @@ const Login = () => {
     setUserFormData({
 
       username: '',
-      email: '',
       password: '',
     })
   }
@@ -108,9 +107,10 @@ const Login = () => {
         
 
           <div className="text-center">
-          <Button variant="success" type="submit" disabled={!(userFormData.username && userFormData.email && userFormData.password)}>
+          <Button variant="success" type="submit" disabled={!(userFormData.username && userFormData.password)}>
              Submit
             </Button>
+            <br/>
           </div>
         </Form>
       </Col>
