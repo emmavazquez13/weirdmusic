@@ -1,33 +1,61 @@
 import React from "react";
-// import "./styles.css";
-import { Nav, Navbar,Image} from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Bat from "./bat.jpg"
-export default function App() {
+import { Container } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from "@apollo/client";
+import { setContext } from '@apollo/client/link/context';
+
+import Home from './pages/Home'
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Messages from "./pages/Messages";
+import Profile from './pages/Profile';
+
+const httpLink = createHttpLink({
+  uri: '/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('id_token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
+
+function App() {
   return (
-   
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Navbar.Brand href="#home">
-      <Image src={Bat} className="logo" />
-      Weird Music 
-    
-      </Navbar.Brand> 
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="#Rock">Rock</Nav.Link>
-          <Nav.Link href="#Hip-Hop">Hip-Hop</Nav.Link>
-          <Nav.Link href="#Pop">Pop</Nav.Link>
-          <Nav.Link href="#Jazz">Jazz</Nav.Link>
-          <Nav.Link href="#Electronic">Electronic</Nav.Link>
-          <Nav.Link href="#Latin">Latin</Nav.Link>
-          <Nav.Link href="#Metal">Metal</Nav.Link>
-         </Nav>
-        <Nav>
-        <Nav.Link eventKey={2} href="">
-          </Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-  );
+    <ApolloProvider client = {client}>
+    <Container className="pt-5">
+
+      <Router>
+        <>
+        <Routes>
+      <Route exact path="/" element={<Home />} />
+
+      <Route exact path="/register" element={<Register />} />
+
+      <Route path="/login" element={<Login />} />
+
+      <Route path="/profile" element={<Profile />} />
+      
+      <Route path="/messages" element={<Messages />} />
+      </Routes>
+      </>
+      </Router>
+
+    </Container>
+    </ApolloProvider>
+  )
 }
+
+export default App;

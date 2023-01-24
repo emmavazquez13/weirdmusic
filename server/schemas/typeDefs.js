@@ -45,7 +45,7 @@ const typeDefs = gql`
   
   type Query {
     me: User
-    groups: [Group]
+    groups: Group
     favorites(groupId: ID): [Favorites]
     genre(groupId: ID): [Genre]
   }
