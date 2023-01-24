@@ -21,13 +21,13 @@ export const ADD_USER = gql`
 mutation addUser(
     $username: String! 
     $email: String! 
-    $password: String!
-    ) {
+    $password: String!) 
+    {
     addUser(
-        username: $username
-        email: $email
-        password: $password
-    ){
+        username: $username,
+        email: $email,
+        password: $password)
+        {
         token
         user {
                 _id
@@ -51,21 +51,21 @@ mutation addUser(
 
 export const POST_GROUP = gql`
 mutation postGroup($groupId: ID! 
-                   $name: String! 
-                   $totalMessages: Int!
-                   $lastModified: String
-                   $going: Boolean
-                   ) {
-        postGroup(
+            $name: String! 
+            $totalMessages: Int!
+            $lastModified: String
+            $going: Boolean) 
+            {
+            postGroup(
             groupId: $groupId
             name: $name
             totalMessages: $totalMessages
             lastModified: $lastModified
-            going: $going
-        ){
-        genreId
-        newgroup
-        groups {
+            going: $going)
+            genre {
+            genreId
+            newgroup
+            groups {
             groupId
             name
             totalMessages
@@ -75,8 +75,10 @@ mutation postGroup($groupId: ID!
 }`;
 
 export const ADD_FAVORITES = gql`
-mutation addFavorites($groupId: ID!){
-    addFavorites(groupId: $groupId){{
+mutation addFavorites($groupId: ID!)
+    {
+    addFavorites(groupId: $groupId)
+    favorites {
         favoritesId
         favoritesBody
         favorited
@@ -90,8 +92,10 @@ mutation addFavorites($groupId: ID!){
 }`
 
 export const DELETE_GROUP = gql`
-mutation deleteGroup($groupId: ID!){
-    deleteGroup(groupId: $groupId){
+mutation deleteGroup($groupId: ID!)
+    {
+    deleteGroup(groupId: $groupId)
+    genre {
         genreId
         newgroup
         groups {
