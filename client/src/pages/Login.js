@@ -82,33 +82,34 @@ const Login = () => {
           Something went wrong!
         </Alert>
           <Form.Group>
-          <Form.Label className='text-danger'>
+          <Form.Label htmlFor='email'>
               {'Username'}
             </Form.Label>
             <Form.Control
               type="text"
               value={userFormData.username}
-              className='is-invalid'
+              name='username'
               onChange={handleInputChange}
+              required
             />
           </Form.Group>
           <Form.Group>
-          <Form.Label className='text-danger'>
+          <Form.Label htmlFor='password'>
               {'Password'}
             </Form.Label>
             <Form.Control
               type="password"
               value={userFormData.password}
-              className='is-invalid'
+              name='password'
               onChange={handleInputChange}
+              required
             />
           </Form.Group>
         
 
           <div className="text-center">
-            <Button variant="success" type="submit" disabled={userFormData.email && userFormData.password}>
-              <br/>
-              <small>Don't have an account? <Link to="/register">Register</Link></small>
+          <Button variant="success" type="submit" disabled={!(userFormData.username && userFormData.email && userFormData.password)}>
+             Submit
             </Button>
           </div>
         </Form>
