@@ -27,7 +27,7 @@ body {
   width: 210px;
   height: 40px;
   margin: 7px;
-  border: 2px solid #43a047;
+  border: 2px solid #e64957ff;
   border-radius: 5px;
   padding: 5px;
   font-size: 16px;
@@ -41,7 +41,7 @@ body {
   border-radius: 5px;
   padding: 5px;
   font-size: 16px;
-  background: #43a047;
+  background: #e64957ff;
   color: #fff;
   cursor: pointer;
 }
@@ -61,7 +61,7 @@ body {
 .chat-window .chat-header {
   height: 45px;
   border-radius: 6px;
-  background: #263238;
+  background: #e64957ff;
   position: relative;
   cursor: pointer;
 }
@@ -101,7 +101,7 @@ body {
   height: auto;
   min-height: 40px;
   max-width: 120px;
-  background-color: #43a047;
+  background-color: #2e7d32;
   border-radius: 5px;
   color: white;
   display: flex;
