@@ -28,7 +28,7 @@ const Register = () => {
     event.preventDefault();
 
     const form = event.currentTarget;
-    console.log(form)
+
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
@@ -38,7 +38,7 @@ const Register = () => {
       const { data } = await addUser({
         variables: { ...userFormData },
       });
-      console.log(data)
+
       Auth.login(data.addUser.token);
     } catch  (e) {
       console.error(e);
