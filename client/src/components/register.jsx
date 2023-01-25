@@ -34,7 +34,6 @@ export default function Register() {
     event.preventDefault();
 
     const form = event.currentTarget;
-    console.log(userFormData);
 
     if (form.checkValidity() === false) {
       event.preventDefault();
