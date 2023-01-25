@@ -8,12 +8,12 @@ const userSchema = new Schema(
     username: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
     },
     email: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
       match: [/.+@.+\..+/, 'Must use a valid email address'],
     },
     password: {
@@ -32,11 +32,11 @@ const userSchema = new Schema(
 
 // userSchema
 //   .virtual('favorited')
-//   // Getter
+// Getter
 //   .get(function () {
 //     return this.favorites.length;
 //   });
-  // Setter to set the first and last name
+/// Setter to set the first and last name
  
 
 // hash user password
