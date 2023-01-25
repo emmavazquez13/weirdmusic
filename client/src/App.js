@@ -1,19 +1,19 @@
-import React from "react";
-import { Container } from "react-bootstrap";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import {
   ApolloClient,
   ApolloProvider,
   InMemoryCache,
   createHttpLink,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
-import Home from "./pages/Home";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import Messages from "./pages/Messages";
-import Profile from "./pages/Profile";
+import Home from './pages/Home';
+// import Home from './components/home';
+import Register from './components/register';
+import Login from './components/login';
+// import Profile from './components/profile';
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
@@ -39,19 +39,17 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Container className="pt-5">
+      <Container className='pt-5'>
         <Router>
           <>
             <Routes>
-              <Route exact path="/" element={<Home />} />
+              <Route exact path='/' element={<Home />} />
 
-              <Route exact path="/register" element={<Register />} />
+              <Route exact path='/register' element={<Register />} />
 
-              <Route path="/login" element={<Login />} />
+              <Route path='/login' element={<Login />} />
 
-              <Route path="/profile" element={<Profile />} />
-
-              <Route path="/messages" element={<Messages />} />
+              {/* <Route path='/profile' element={<Profile />} /> */}
             </Routes>
           </>
         </Router>

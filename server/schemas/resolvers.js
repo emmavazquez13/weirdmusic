@@ -6,7 +6,9 @@ const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id }).select('-__v -password');
+        const userData = await User.findOne({ _id: context.user._id }).select(
+          '-__v -password',
+        );
         return userData;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -21,10 +23,8 @@ const resolvers = {
     genre: async (parent, { group }) => {
       const params = group ? { group } : {};
       return Genre.find(params);
-    }
+    },
   },
-  
-
 
   Mutation: {
     login: async (parent, { username, password }) => {
@@ -45,9 +45,13 @@ const resolvers = {
     },
 
     addUser: async (parent, args) => {
-      const user = await User.create(args);
-      const token = signToken(user);
-      return { token, user };
+      try {
+        const user = await User.create(args);
+        const token = signToken(user);
+        return { token, user };
+      } catch (err) {
+        return err;
+      }
     },
 
     addFavorites: async (parent, { groupId }, context) => {
@@ -55,26 +59,26 @@ const resolvers = {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: {groups: groupId  } },
-          { new: true }
+          { $addToSet: { groups: groupId } },
+          { new: true },
         ).populate('favorites');
-        
+
         return updatedUser;
       }
     },
     // Add a third argument to the resolver to access data in our `context`
-    postGroup: async (parent, args , context) => {
+    postGroup: async (parent, args, context) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
       if (context.genre) {
         const group = await Group.create({
-          ...args
+          ...args,
         });
 
         await Genre.findOneAndUpdate(
-          {genreId: context.genre._id },
-          {$push: { groups: group } },
-          { new: true }
-        )
+          { genreId: context.genre._id },
+          { $push: { groups: group } },
+          { new: true },
+        );
         return group;
       }
       // If user attempts to execute this mutation and isn't logged in, throw an error
@@ -86,7 +90,7 @@ const resolvers = {
         const updatedGenre = Genre.findOneAndUpdate(
           { _id: context.genre._id },
           { $pull: { addGroup: { groupId } } },
-          { new: true }
+          { new: true },
         );
         return updatedGenre;
       }
@@ -94,7 +98,5 @@ const resolvers = {
     },
   },
 };
-
-
 
 module.exports = resolvers;

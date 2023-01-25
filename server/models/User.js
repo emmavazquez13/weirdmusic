@@ -20,7 +20,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    favorites:[Favorites.schema]
+    // favorites:[Favorites.schema]
   },
   {
     toJSON: {
@@ -30,12 +30,12 @@ const userSchema = new Schema(
   }
 );
 
-userSchema
-  .virtual('favorited')
-  // Getter
-  .get(function () {
-    return this.favorites.length;
-  });
+// userSchema
+//   .virtual('favorited')
+//   // Getter
+//   .get(function () {
+//     return this.favorites.length;
+//   });
   // Setter to set the first and last name
  
 
