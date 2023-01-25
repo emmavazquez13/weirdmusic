@@ -22,6 +22,25 @@ const io = new Server(socketServer, {
   },
 });
 
+io.on('connection', (socket) => {
+  socket.on('join_room', (data) => {
+    socket.join(data);
+    console.log(`User has joined the room: ${socket.id} joined room: ${data}`);
+  });
+
+  socket.on('send_message', (data) => {
+    socket.to(data.room).emit('receive_message', data);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('User has left the room', socket.id);
+  });
+});
+
+socketServer.listen(3002, () => {
+  console.log('Welcome to WeirdMusic!');
+});
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -42,23 +61,6 @@ app.get('/', (req, res) => {
 const startApolloServer = async (typeDefs, resolvers) => {
   await server.start();
   server.applyMiddleware({ app });
-
-  io.on('connection', (socket) => {
-    socket.on('join_room', (data) => {
-      socket.join(data);
-      console.log(
-        `User has joined the room: ${socket.id} joined room: ${data}`,
-      );
-    });
-
-    socket.on('send_message', (data) => {
-      socket.to(data.room).emit('receive_message', data);
-    });
-
-    socket.on('disconnect', () => {
-      console.log('User has left the room', socket.id);
-    });
-  });
 
   db.once('open', () => {
     app.listen(PORT, () => {
