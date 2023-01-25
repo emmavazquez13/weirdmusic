@@ -15,6 +15,8 @@ import Register from './components/register';
 import Login from './components/login';
 import Profile from './pages/Profile';
 
+import LoginChat from './components/Chat/loginChat';
+
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
 });
@@ -50,6 +52,8 @@ function App() {
               <Route path='/login' element={<Login />} />
 
               <Route path='/profile' element={<Profile />} />
+
+              <Route path='/loginChat' element={<LoginChat />} />
             </Routes>
           </>
         </Router>
