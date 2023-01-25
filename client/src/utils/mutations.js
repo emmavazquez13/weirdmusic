@@ -39,10 +39,8 @@ mutation addUser(
                     favoritesBody
                     favorited
                     groups {
-                        groupId
+                        _id
                         name
-                        totalMessages
-                        lastModified
                     }
                 }
             }
@@ -51,60 +49,34 @@ mutation addUser(
 `;
 
 export const POST_GROUP = gql`
-mutation postGroup($groupId: ID! 
-            $name: String! 
-            $totalMessages: Int!
-            $lastModified: String
-            $going: Boolean) 
-            {
-            postGroup(
-            groupId: $groupId
-            name: $name
-            totalMessages: $totalMessages
-            lastModified: $lastModified
-            going: $going)
-            genre {
-            genreId
-            newgroup
-            groups {
-            groupId
+mutation postGroup($name: String!) {
+    postGroup(name: $name) {
+            _id
             name
-            totalMessages
-            lastModified
-        }
     }
 }`;
 
 export const ADD_FAVORITES = gql`
-mutation addFavorites($groupId: ID!)
+mutation addFavorites($_Id: ID!)
     {
-    addFavorites(groupId: $groupId)
+    addFavorites(_Id: $_Id)
     favorites {
         favoritesId
         favoritesBody
         favorited
         groups {
-            groupId
+            _id
             name
-            totalMessages
-            lastModified
         }
     }
 }`
 
 export const DELETE_GROUP = gql`
-mutation deleteGroup($groupId: ID!)
-    {
-    deleteGroup(groupId: $groupId)
-    genre {
-        genreId
-        newgroup
-        groups {
-            groupId
-            name
-            totalMessages
-            lastModified
-        }
-    }
-}`
+mutation deleteGroup($groupId: ID!){
+    deleteGroup(groupId: $groupId){
+        _id
+        name
+        
+    }   
+}`  
 ;

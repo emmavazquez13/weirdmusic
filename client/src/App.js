@@ -14,6 +14,7 @@ import Home from './pages/Home';
 import Register from './components/register';
 import Login from './components/login';
 // import Profile from './components/profile';
+import Genre from './pages/Genre';
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
@@ -48,6 +49,8 @@ function App() {
               <Route exact path='/register' element={<Register />} />
 
               <Route path='/login' element={<Login />} />
+
+              <Route path='/genre/*' element ={<Genre />}/>
 
               {/* <Route path='/profile' element={<Profile />} /> */}
             </Routes>
