@@ -1,11 +1,26 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
+const http = require('http');
+const cors = require('cors');
+const { Server } = require('socket.io');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
+
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+app.use(cors());
+
+const socketServer = http.createServer(app);
+
+const io = new Server(socketServer, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'],
+  },
+});
 
 const server = new ApolloServer({
   typeDefs,
@@ -27,15 +42,33 @@ app.get('/', (req, res) => {
 const startApolloServer = async (typeDefs, resolvers) => {
   await server.start();
   server.applyMiddleware({ app });
-  
+
+  io.on('connection', (socket) => {
+    socket.on('join_room', (data) => {
+      socket.join(data);
+      console.log(
+        `User has joined the room: ${socket.id} joined room: ${data}`,
+      );
+    });
+
+    socket.on('send_message', (data) => {
+      socket.to(data.room).emit('receive_message', data);
+    });
+
+    socket.on('disconnect', () => {
+      console.log('User has left the room', socket.id);
+    });
+  });
+
   db.once('open', () => {
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
-      console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-    })
-  })
-  };
-  
-// Call the async function to start the server
-  startApolloServer(typeDefs, resolvers);
+      console.log(
+        `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`,
+      );
+    });
+  });
+};
 
+// Call the async function to start the server
+startApolloServer(typeDefs, resolvers);
