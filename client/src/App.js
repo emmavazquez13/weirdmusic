@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Navbar } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import {
   ApolloClient,
@@ -14,6 +14,7 @@ import { setContext } from '@apollo/client/link/context';
 import Register from './components/register';
 import Login from './components/login';
 import Home from './components/home';
+import Header from './components/header';
 
 
 const httpLink = createHttpLink({
@@ -51,6 +52,8 @@ function App() {
               <Route path='/login' element={<Login />} />
 
               <Route path='/home' element={<Home />} />
+
+              <Route path='/header' element={<Header />} />
              
               
               {/* <Route path='/profile' element={<Profile />} /> */}
