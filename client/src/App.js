@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
 
-import Home from './pages/Home'
+// import Home from './pages/Home'
+import Home from './components/home'
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Messages from "./pages/Messages";
 import Profile from './pages/Profile';
 
 const httpLink = createHttpLink({
@@ -48,7 +48,6 @@ function App() {
 
       <Route path="/profile" element={<Profile />} />
       
-      <Route path="/messages" element={<Messages />} />
       </Routes>
       </>
       </Router>
