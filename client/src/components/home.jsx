@@ -24,23 +24,36 @@ export default function Home() {
         </div>
     
          <div className='logo'>
-            <h1 className='text-3xl font-bangers text-center text-red uppercase'>
+            <h1 className='text-3xl font-serif text-center text-red uppercase'>
               <h1>Austin-Bound chat for concerts & live music</h1>
             </h1>
           </div>
       </div>
 
-      <Row className='bg-black justify content-around text-white'>
-        <Link to='/login'>
-          <Button variant='link'>Login</Button>
+      <div className='h-45 grid grid-cols-3 gap-4 content-center'>
+      <Link to='/login'>
+      <Button
+              className='w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-red rounded-md hover:bg-red focus:outline-none focus:bg-red'
+              variant='link'
+              type='login'            >
+              Login
+            </Button>
         </Link>
         <Link to='/register'>
-          <Button variant='link'>Register</Button>
+      <Button
+              className='w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-red rounded-md hover:bg-red focus:outline-none focus:bg-red'
+              variant='link'
+              type='Register'            >
+              Register
+            </Button>
         </Link>
-        <Button variant='link' onClick={logout}>
+        <Button 
+          className='w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-red rounded-md hover:bg-gray focus:outline-none focus:bg-red'
+          variant='link' 
+          onClick={logout}>
           Logout
         </Button>
-      </Row>
+      </div>
 
 
     </div>

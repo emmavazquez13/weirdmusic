@@ -10,8 +10,8 @@ export default function NavBar() {
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
                    <h3 className='logo'>
-                   <img width='70px' height='50px' src={pic} alt='colored logo'  />
-                    <h3 className="text-black  font-cursive uppercase text-center text-lg font-bold">
+                   <img width='70px' height='50px' src={pic} alt='colored logo' />
+                    <h3 className="text-black font-serif uppercase text-center text-lg font-bold">
                         <h3>Weird Music</h3>
                     </h3>
                    </h3>

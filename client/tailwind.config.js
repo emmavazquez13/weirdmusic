@@ -17,7 +17,7 @@ module.exports = {
         xl: '1440px',
       },
       fontFamily: {
-        'Bangers': ['bangers', 'cursive'],
+        'serif': ['bangers', 'cursive'],
         'Roboto Condensed': ['"roboto condensed"', 'sans-serif'],
       },
       opacity: {
