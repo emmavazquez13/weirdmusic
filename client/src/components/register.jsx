@@ -15,7 +15,7 @@ export default function Register() {
 
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [addUser, { error, data }] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   useEffect(() => {
     if (error) {
@@ -34,7 +34,7 @@ export default function Register() {
     event.preventDefault();
 
     const form = event.currentTarget;
-    console.log('Hello');
+    console.log(userFormData);
 
     if (form.checkValidity() === false) {
       event.preventDefault();
