@@ -1,5 +1,5 @@
 import { useState } from "react";
-import pic from './images/batLogo.png';
+import pic from './images/logo.png';
 
 export default function NavBar() {
     const [navbar, setNavbar] = useState(false);
@@ -9,7 +9,12 @@ export default function NavBar() {
             <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
-                      
+                   <h3 className='logo'>
+                   <img width='70px' height='50px' src={pic} alt='colored logo'  />
+                    <h3 className="text-black  font-cursive uppercase text-center text-lg font-bold">
+                        <h3>Weird Music</h3>
+                    </h3>
+                   </h3>
 
                         <div className="md:hidden">
                             <button
