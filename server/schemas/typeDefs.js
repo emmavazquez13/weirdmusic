@@ -53,9 +53,9 @@ const typeDefs = gql`
   type Mutation {
     login(username: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    postGroup(groupId: ID! name: String! totalMessages: Int! lastModified: String): Genre
+    postGroup(groupId: ID! name: String! totalMessages: Int! lastModified: String): Group 
     addFavorites(groupId: ID!): Favorites
-    deleteGroup(groupId: ID!): Genre
+    deleteGroup(groupId: ID!): Group
   }
 `;
 

@@ -63,34 +63,22 @@ const resolvers = {
       }
     },
     // Add a third argument to the resolver to access data in our `context`
-    postGroup: async (parent, args , context) => {
+    postGroup: async (parent, args) => {
       // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
-      if (context.genre) {
-        const group = await Group.create({
-          ...args
-        });
-
-        await Genre.findOneAndUpdate(
-          {genreId: context.genre._id },
-          {$push: { groups: group } },
-          { new: true }
-        )
+       const group = await Group.create({args});
         return group;
-      }
+     
       // If user attempts to execute this mutation and isn't logged in, throw an error
       throw new AuthenticationError('You need to be logged in!');
     },
 
-    deleteGroup: async (parent, { groupId }, context) => {
-      if (context.genre) {
-        const updatedGenre = Genre.findOneAndUpdate(
-          { _id: context.genre._id },
+    deleteGroup: async (parent, { groupId }) => {
+    const updatedGroup = Group.findOneAndUpdate(
+          { _id: context.group._id },
           { $pull: { addGroup: { groupId } } },
           { new: true }
         );
-        return updatedGenre;
-      }
-      throw new AuthenticationError('You need to be logged in!');
+        return updatedGroup;
     },
   },
 };

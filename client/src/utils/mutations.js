@@ -54,25 +54,20 @@ export const POST_GROUP = gql`
 mutation postGroup($groupId: ID! 
             $name: String! 
             $totalMessages: Int!
-            $lastModified: String
-            $going: Boolean) 
+            $lastModified: String) 
             {
             postGroup(
             groupId: $groupId
             name: $name
             totalMessages: $totalMessages
-            lastModified: $lastModified
-            going: $going)
-            genre {
-            genreId
-            newgroup
+            lastModified: $lastModified)
             groups {
             groupId
             name
             totalMessages
             lastModified
         }
-    }
+
 }`;
 
 export const ADD_FAVORITES = gql`
@@ -96,15 +91,11 @@ export const DELETE_GROUP = gql`
 mutation deleteGroup($groupId: ID!)
     {
     deleteGroup(groupId: $groupId)
-    genre {
-        genreId
-        newgroup
         groups {
             groupId
             name
             totalMessages
             lastModified
         }
-    }
 }`
 ;

@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Messages from "./pages/Messages";
 import Profile from './pages/Profile';
+import Genre from './pages/Genre';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
@@ -49,6 +50,8 @@ function App() {
       <Route path="/profile" element={<Profile />} />
       
       <Route path="/messages" element={<Messages />} />
+
+      <Route path="/genre" element={<Genre />} />
       </Routes>
       </>
       </Router>
