@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Navbar } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import {
   ApolloClient,
@@ -9,11 +9,13 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-import Home from './pages/Home';
+//import Home from './pages/Home';
 // import Home from './components/home';
 import Register from './components/register';
 import Login from './components/login';
-// import Profile from './components/profile';
+import Home from './components/home';
+import Header from './components/header';
+
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
@@ -49,6 +51,11 @@ function App() {
 
               <Route path='/login' element={<Login />} />
 
+              <Route path='/home' element={<Home />} />
+
+              <Route path='/header' element={<Header />} />
+             
+              
               {/* <Route path='/profile' element={<Profile />} /> */}
             </Routes>
           </>
