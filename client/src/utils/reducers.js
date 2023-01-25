@@ -17,6 +17,6 @@ export const reducer = (state, action) => {
 	}
 };
 
-export function useFitnessReducer(initialState) {
+export function useChatReducer(initialState) {
 	return useReducer(reducer, initialState);
 }
