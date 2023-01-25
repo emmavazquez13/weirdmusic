@@ -51,7 +51,7 @@ function App() {
       
       <Route path="/messages" element={<Messages />} />
 
-      <Route path="/genre" element={<Genre />} />
+      <Route path="/genre/*" element={<Genre />} />
       </Routes>
       </>
       </Router>

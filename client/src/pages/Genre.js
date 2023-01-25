@@ -1,11 +1,12 @@
 import React from 'react';
-import { Container, Card } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
+import { Route, Routes } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_GROUP } from '../utils/queries';
 import Auth from '../utils/auth';
 import Collapsible from 'react-collapsible';
 import DeleteGroup from '../Component/DeleteGroup';
-import PostGroup from '../Component/PostGroup';
+import PostGroup  from '../Component/PostGroup';
 
 function Genre() {
     const {loading, data } = useQuery(QUERY_GROUP)
@@ -29,10 +30,16 @@ return (
 
     
     <Collapsible trigger='Metal'>
-    <Container>
+    <Container >
+            <Routes>
+                <Route exact path='/postgroup' element={<PostGroup />}>
+                    Create a Group!
+                    </Route>
 
-      <p> METAL </p>
-
+                <Route exact path='/deletegroup' element={<DeleteGroup />}>
+                    Delete a Group!
+                </Route>
+            </Routes>
         </Container>
     </Collapsible>
 
@@ -42,17 +49,6 @@ return (
         </Container>  
     </Collapsible>
 
-    <Collapsible trigger='Rap'>
-    <Container>
-        <p> RAP </p>
-        </Container>
-    </Collapsible>
-
-    <Collapsible trigger='Pop'>
-    <Container>
-        <p> POP </p>
-        </Container>
-    </Collapsible>
 
     </div>
 )
