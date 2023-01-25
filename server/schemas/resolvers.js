@@ -45,13 +45,11 @@ const resolvers = {
     },
 
     addUser: async (parent, args) => {
-      console.log(args);
       try {
         const user = await User.create(args);
         const token = signToken(user);
         return { token, user };
       } catch (err) {
-        console.log(err);
         return err;
       }
     },
