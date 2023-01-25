@@ -9,10 +9,11 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-//import Home from './pages/Home';
 // import Home from './components/home';
 import Register from './components/register';
 import Login from './components/login';
+// import Profile from './components/profile';
+import Genre from './pages/Genre';
 import Home from './components/home';
 import Header from './components/header';
 
@@ -51,11 +52,8 @@ function App() {
 
               <Route path='/login' element={<Login />} />
 
-              <Route path='/home' element={<Home />} />
+              <Route path='/genre/*' element ={<Genre />}/>
 
-              <Route path='/header' element={<Header />} />
-             
-              
               {/* <Route path='/profile' element={<Profile />} /> */}
             </Routes>
           </>

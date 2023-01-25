@@ -16,16 +16,14 @@ const typeDefs = gql`
   }
  
   type Genre {
-    genreId: ID!
+    genreId: ID
     group: Group
     newgroup: Int
   }
 
   type Group {
-    groupId: ID!
+    _id: ID!
     name: String!
-    totalMessages: Int!
-    lastModified: String
   }
 
   type Message {
@@ -45,7 +43,8 @@ const typeDefs = gql`
   
   type Query {
     me: User
-    groups: Group
+    groups: [Group]!
+    group(groupdId: ID!): Group
     favorites(groupId: ID): [Favorites]
     genre(groupId: ID): [Genre]
   }
@@ -53,9 +52,9 @@ const typeDefs = gql`
   type Mutation {
     login(username: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    postGroup(groupId: ID! name: String! totalMessages: Int! lastModified: String): Genre
-    addFavorites(groupId: ID!): Favorites
-    deleteGroup(groupId: ID!): Genre
+    postGroup(name: String!): Group 
+    addFavorites(Id: ID!): Favorites
+    deleteGroup(_id: ID!): Group
   }
 `;
 

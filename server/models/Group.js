@@ -8,14 +8,6 @@ const groupSchema = new Schema(
             required: true,
             unique: true,
         },
-        totalMessages: {
-            type: Number,
-            required: true,
-        },
-        lastModified: {
-            type: Date,
-            required: true,           
-        },
       //  messages: [messageSchema],
     },
     {

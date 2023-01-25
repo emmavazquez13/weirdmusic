@@ -11,44 +11,38 @@ export const GET_ME = gql `
             favoritesId
             favorited
             groups {
-                groupId
+                _Id
                 name
-                totalMessages
-                lastModified
             }
         }
-    }`
-
+    }
+}`
 export const QUERY_GROUP = gql` 
-
+query allGroups {
     groups {
-        groupId
+        _id
         name
-        totalMessages
-        lastModified
-    }`
-
+    }
+}`
 export const QUERY_FAVORITES = gql`
+{
     favorites {
         favoritesId
         favorited
         groups {
-            groupId
+            _id
             name
-            totalMessages
-            lastModified
         }
-    }`
-
+    }
+}`
 export const QUERY_GENRE = gql`
+{
     genre {
         genreId
         newgroup
         groups {
-            groupId
+            _Id
             name
-            totalMessages
-            lastModified
         }
     }
 }`;
