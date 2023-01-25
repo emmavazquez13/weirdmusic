@@ -13,7 +13,7 @@ import Home from './pages/Home';
 // import Home from './components/home';
 import Register from './components/register';
 import Login from './components/login';
-import Profile from './pages/Profile';
+// import Profile from './components/profile';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3001/graphql',
@@ -49,7 +49,7 @@ function App() {
 
               <Route path='/login' element={<Login />} />
 
-              <Route path='/profile' element={<Profile />} />
+              {/* <Route path='/profile' element={<Profile />} /> */}
             </Routes>
           </>
         </Router>
