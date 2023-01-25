@@ -9,10 +9,7 @@ module.exports = {
         'gray-light': '#F2F0F0',
         'black': '#1A1A1A',
       },
-      // backgroundImage: {
-      //   'black-logo': img('/components/images/logo.png'),
-      //   'color-logo': img('/components/images/wierd-music-logo.png'),
-      // },
+      
       screens: {
         sm: '480px',
         md: '768px',
@@ -20,7 +17,7 @@ module.exports = {
         xl: '1440px',
       },
       fontFamily: {
-        'Bangers': ['bangers', 'cursive'],
+        'serif': ['bangers', 'cursive'],
         'Roboto Condensed': ['"roboto condensed"', 'sans-serif'],
       },
       opacity: {
