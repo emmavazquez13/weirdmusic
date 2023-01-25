@@ -9,11 +9,11 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
-import Home from './pages/Home';
+//import Home from './pages/Home';
 // import Home from './components/home';
 import Register from './components/register';
 import Login from './components/login';
-import header from './components/header';
+import Home from './components/home';
 
 
 const httpLink = createHttpLink({
@@ -49,6 +49,8 @@ function App() {
               <Route exact path='/register' element={<Register />} />
 
               <Route path='/login' element={<Login />} />
+
+              <Route path='/home' element={<Home />} />
              
               
               {/* <Route path='/profile' element={<Profile />} /> */}
