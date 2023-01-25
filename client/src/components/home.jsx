@@ -1,30 +1,22 @@
 import React from 'react';
-// import image from '../components/images/weird-music-logo.png';
+import pic from './images/batLogo.png';
 
 export default function Home() {
   return (
-    <div className='flex items-center justify-end mt-4'>
-      <a
-        className='text-sm text-gray-600 underline hover:text-gray-900'
-        href='#'
-      >
-        Logo
-      </a>
-      <button
-        type='submit'
-        className='text-sm text-gray-600 underline hover:text-gray-900'
-        href='#'
-      >
-        Sign In
-      </button>
-
-      <button
-        type='submit'
-        className='text-sm text-gray-600 underline hover:text-gray-900'
-        href='#'
-      >
-        Register
-      </button>
+    <div>
+      <div className='flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50'>
+        <div>
+         <h1 className='logo'>
+            <img width='500px' height='400px' src={pic} alt='colored logo' />
+          </h1>
+        </div>
+    
+         <div className='logo'>
+            <h1 className='text-3xl font-bangers text-center text-red uppercase'>
+              <h1>Austin-Bound chat for concerts & live music</h1>
+            </h1>
+          </div>
+      </div>
     </div>
   );
 }
