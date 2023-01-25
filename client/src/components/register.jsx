@@ -1,4 +1,5 @@
 import React from "react";
+import pic from './images/wierd-music-logo.png'
 export default function Registration() {
     return (
         <div>
