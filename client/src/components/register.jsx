@@ -17,7 +17,7 @@ export default function Registration() {
                                 htmlFor="name"
                                 className="block text-sm font-medium text-gray-700 undefined"
                             >
-                                Name
+                                Username
                             </label>
                             <div className="flex flex-col items-start">
                                 <input
@@ -77,7 +77,7 @@ export default function Registration() {
                                 className="text-sm text-gray-600 underline hover:text-gray-900"
                                 href="#"
                             >
-                                Already registered?
+                                Already have an account?
                             </a>
                             <button
                                 type="submit"

@@ -4,10 +4,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        red: '#E64957',
+        'red': '#E64957',
         'gray-dark': '#D1D1D1',
         'gray-light': '#F2F0F0',
-        black: '#1A1A1A',
+        'black': '#1A1A1A',
+      },
+      backgroundImage: {
+        'black-logo': img('/components/images/logo.png'),
+        'color-logo': img('/components/images/wierd-music-logo.png'),
       },
       screens: {
         sm: '480px',
@@ -16,7 +20,7 @@ module.exports = {
         xl: '1440px',
       },
       fontFamily: {
-        Bangers: ['"bangers"', 'cursive'],
+        'Bangers': ['bangers', 'cursive'],
         'Roboto Condensed': ['"roboto condensed"', 'sans-serif'],
       },
       opacity: {
