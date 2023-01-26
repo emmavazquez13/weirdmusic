@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-
+const secret = 'mysecretsshhhhh';
 // set token secret and expiration date
 const expiration = '2h';
 
